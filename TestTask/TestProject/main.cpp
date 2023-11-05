@@ -133,8 +133,8 @@ void generateBEV(PointCloud<PointXYZ>::Ptr cloud, int height, int width, float c
             y = cloud->points[i].y + yHalfROI;
             idLine = (unsigned int)(height - round(y / cellSize));
             idCol = (unsigned int)round(x / cellSize) - 1;
-            imgPtsPerPixel.at<uint>(idLine, idCol)++;
-            if (imgPtsPerPixel.at<uint>(idLine, idCol) > maxDensity) {
+            //imgPtsPerPixel.at<uint>(idLine, idCol)++;
+            if (++imgPtsPerPixel.at<uint>(idLine, idCol) > maxDensity) {
                 maxDensity++;
             }
         }
@@ -191,7 +191,6 @@ int main(int argc, char** argv) {
     groundFilteredCloud = getGroundFilteredPC(sourceCloud);
     generateBEV(groundFilteredCloud, 200, 200, 1.0, 100.0, 100.0);
     generateBEV(groundFilteredCloud, 400, 400, 0.5, 100.0, 100.0);
-    generateBEV(groundFilteredCloud, 800, 800, 0.25, 100.0, 100.0);
 
     return 0;
 }
